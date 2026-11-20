@@ -1,6 +1,9 @@
 
 require("dotenv").config();
 
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -19,10 +22,10 @@ mongoose
     .then(() => {
         console.log("MongoDB Connected Successfully");
 
-        app.listen(5000, () => {
-            console.log("Server running on port 5000");
+        app.listen(process.env.PORT || 5000, () => {
+            console.log("Server running on port", process.env.PORT || 5000);
         });
     })
     .catch((error) => {
-        console.error("MongoDB connection failed:", error.message);
+        console.error("MongoDB connection failed:", error);
     });
